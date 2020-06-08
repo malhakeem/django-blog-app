@@ -3,16 +3,16 @@
 {% block body %}
 
 <div class="jumbotron text-center">
-        <h3>Yazılım Bilimi Bloğuna Hoşgeldiniz</h3>
-        <p>Bu blogta geliştiriciler olarak blog yazılarınızı paylaşabilirsiniz ve insanlara yardımcı olabilirsiniz.</p>
+        <h3>Welcome to my Data Engineering Blog</h3>
+        <p>Here, I'll be sharing some posts about stuff that I stumble upon at work and projects that I find interesting</p>
 </div>
 
 
 <p>
         {% if request.user.is_authenticated %}
-                Giriş Yapılmış, {{request.user.username}}
+                Logged in as {{request.user.username}}
         {% else %}
-                Giriş Yapılmamış
+                Not logged in
         {% endif %}
 
 </p>

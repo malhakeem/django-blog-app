@@ -1,35 +1,36 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<h3>Kontrol Paneli</h3>
+<h3>Control Panel</h3>
 <hr>
 <p>
-    Hoşgeldiniz, <small>{{request.user.username}}</small>
+    Welcome {{request.user.username}}
 </p>
+{% if request.user.is_staff %}
 <hr>
-<a class = "btn btn-danger" href = "{% url 'article:addarticle' %}">Makale Ekle </a>
+<a class = "btn btn-danger" href = "{% url 'article:addarticle' %}">Add Article </a>
 <hr>
 {% if articles %}
 <table class="table">
         <thead>
           <tr>
-            <th scope="col">id</th>
-            <th scope="col">Başlık</th>
-            <th scope="col">Yazar</th>
-            <th scope="col">Tarih</th>
-            <th scope="col">Güncelle</th>
-            <th scope="col">Sil</th>
+            <th scope="col">ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Publisher</th>
+            <th scope="col">Date</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
           {% for article in articles %}
           <tr>
             <th scope="row">{{article.id}}</th>
-            <td><a href="{% url 'article:detail' article.slug %}">{{article.title}}</a></td>
+            <td><a href="{% url 'article:detail' article.id %}">{{article.title}}</a></td>
             <td>{{article.author.username}}</td>
             <td>{{article.created_date}}</td>
-            <td><a href="{% url 'article:update' article.slug %}" class = "btn btn-danger">Güncelle</a></td>
-            <td><a href="{% url 'article:delete' article.slug %}" class = "btn btn-danger">Sil</a> </td>
+            <td><a href="{% url 'article:update' article.id %}" class = "btn btn-danger">Update</a></td>
+            <td><a href="{% url 'article:delete' article.id %}" class = "btn btn-danger">Delete</a> </td>
               
           </tr>
           {% endfor %}
@@ -39,10 +40,17 @@
 {% else %}
 
 <div class = "alert alert-danger">
-    Henüz bir makaleniz bulunmuyor...
+    No articles...
 
 </div>
 {% endif %}
+{%else%}
+<div class = "alert alert-danger">
+  Sorry, only admins can write articles :( Contact <a href="mailto:malhakeem13@gmail.com">Mohammed</a> to gain the privilege ;)
+
+</div>
+{% endif %}
+
 
 
 
